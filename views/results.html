@@ -1,0 +1,144 @@
+<div class="container card">
+  <h3 class="subsection">You'll make</h3><hr>
+  <h5 class="paycheck"><span style="color: #4CAF50;font-size: 2em;">{{ user.results.paycheck | currency:"$":0 }}</span>  {{ user.paymentFrequency }}</h5>
+</div><br>
+<div class="container card">
+  <h3 class="subsection">Breakdown</h3>
+  <p style="margin:0">Protip: Mouse over the grey paths to see their values.</p><hr>
+  <svg class="sankey" width="900" height="500"></svg><br>
+</div><br>
+<div class="container card">
+  <h3 class="subsection">The Numbers</h3><hr>
+  <div class="row">
+    <div class="col-md-4">
+        <h5>Taxes</h5>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Federal</td>
+              <td>{{ user.results.federal  | currency:"$":0}}</td>
+            </tr>
+            <tr>
+              <td>State</td>
+              <td>{{ user.results.state | currency:"$":0 }}</td>
+            </tr>
+            <tr>
+              <td>FICA</td>
+              <td>{{ user.results.fica | currency:"$":0 }}</td>
+            </tr>
+            <tr>
+              <td>Local</td>
+              <td>{{ user.results.local | currency:"$":0 }}</td>
+            </tr>
+            <tr class="table-info">
+              <td><b>Total</b></td>
+              <td><b>{{ user.results.federal + user.results.state + user.results.fica + user.results.local | currency:"$":0 }}</b></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <div class="col-md-4">
+      <h5>Voluntary Contributions</h5>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Deduction</th>
+            <th>Amount Per Year</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Healthcare</td>
+            <td>{{ user.results.healthcareAmount | currency:"$":0 }}</td>
+          </tr>
+          <tr>
+            <td>Dental</td>
+            <td>{{ user.results.dentalAmount | currency:"$":0 }}</td>
+          </tr>
+          <tr>
+            <td>Retirement</td>
+            <td>{{ user.results.retirementAmount | currency:"$":0 }}</td>
+          </tr>
+          <tr class="table-info">
+            <td><b>Total</b></td>
+            <td><b>{{ user.results.healthcareAmount + user.results.dentalAmount + user.results.retirementAmount | currency:"$":0 }}</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <h5>Regular Payments</h5>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Deduction</th>
+            <th>Amount Per Year</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Student Loans</td>
+            <td>{{ user.results.studentLoanAmount | currency:"$":0 }}</td>
+          </tr>
+          <tr>
+            <td>Rent</td>
+            <td>{{ user.results.rentAmount | currency:"$":0 }}</td>
+          </tr>
+          <tr>
+            <td>Utilities</td>
+            <td>{{ user.results.utilitiesAmount | currency:"$":0 }}</td>
+          </tr>
+          <tr>
+            <td>Car Payments</td>
+            <td>{{ user.results.carAmount | currency:"$":0 }}</td>
+          </tr>
+          <tr>
+            <td>Groceries</td>
+            <td>{{ user.results.groceriesAmount | currency:"$":0 }}</td>
+          </tr>
+          <tr class="table-info">
+            <td><b>Total</b></td>
+            <td><b>{{ user.results.studentLoanAmount + user.results.rentAmount + user.results.utilitiesAmount + user.results.carAmount + user.results.groceriesAmount | currency:"$":0 }}</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h5>Total</h5>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Salary</th>
+        <th>Taxes</th>
+        <th>Voluntary Contributions</th>
+        <th>Regular Payments</th>
+        <th>Remainder</th>
+      </tr>
+    </thead>
+    <colgroup>
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 20%;">
+   </colgroup>
+    <tbody>
+      <tr>
+        <td class="add">{{ user.salary | currency:"$":0 }}</td>
+        <td class="subtract">- {{ user.results.federal + user.results.state + user.results.fica + user.results.local | currency:"$":0 }}</td>
+        <td class="subtract">- {{ user.results.healthcareAmount + user.results.dentalAmount + user.results.retirementAmount | currency:"$":0 }}</td>
+        <td class="subtract">- {{ user.results.studentLoanAmount + user.results.rentAmount + user.results.utilitiesAmount + user.results.carAmount + user.results.groceriesAmount | currency:"$":0 }}</td>
+        <td class="table-info">{{ user.results.remainder | currency:"$":0 }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div><br>
+<div class="container card">
+  <button class="btn btn-outline-primary" ng-click="gotoProjections()">Projections &rsaquo;</button>
+</div>

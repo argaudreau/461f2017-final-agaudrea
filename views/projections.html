@@ -1,0 +1,78 @@
+<div class="container card">
+  <h3 class="subsection">{{ title }}</h3><hr>
+  <div class="row">
+    <div class="col-md-4">
+      <div id="chart"></div>
+    </div>
+    <div class="col-md-8">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>1 year</th>
+            <th>5 years</th>
+            <th>10 years</th>
+            <th>20 years</th>
+          </tr>
+        </thead>
+        <colgroup>
+          <col span="1" style="width: 20%;">
+          <col span="1" style="width: 20%;">
+          <col span="1" style="width: 20%;">
+          <col span="1" style="width: 20%;">
+          <col span="1" style="width: 20%;">
+        </colgroup>
+        <tbody>
+          <tr>
+            <td><b>Save</b></td>
+            <td class="add">{{ user.projections.save | currency:"$":0 }}</td>
+            <td class="add">{{ user.projections.save * 5 | currency:"$":0 }}</td>
+            <td class="add">{{ user.projections.save * 10 | currency:"$":0 }}</td>
+            <td class="add">{{ user.projections.save * 20 | currency:"$":0 }}</td>
+          </tr>
+          <tr>
+            <td><b>Invest</b></td>
+            <td class="add">{{ user.projections.invest | currency:"$":0 }}</td>
+            <td class="add">{{ user.projections.invest * 5 | currency:"$":0 }}</td>
+            <td class="add">{{ user.projections.invest * 10 | currency:"$":0 }}</td>
+            <td class="add">{{ user.projections.invest * 20 | currency:"$":0 }}</td>
+          </tr>
+          <tr>
+            <td><b>Spend</b></td>
+            <td class="subtract">{{ user.projections.spend | currency:"$":0 }}</td>
+            <td class="subtract">{{ user.projections.spend * 5 | currency:"$":0 }}</td>
+            <td class="subtract">{{ user.projections.spend * 10 | currency:"$":0 }}</td>
+            <td class="subtract">{{ user.projections.spend * 20 | currency:"$":0 }}</td>
+          </tr>
+        </tbody>
+      </table><br>
+      <form name="ratioForm" ng-submit="submitForm()" novalidate>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Save (%):</label>
+              <input class="form-control" type="number" name="save">
+              <span id="save-error" class="invalid" hidden>Ratio must be greater than 0%.</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Invest (%):</label>
+              <input class="form-control" type="number" name="invest">
+              <span id="invest-error" class="invalid" hidden>Ratio must be greater than 0%.</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Spend (%):</label>
+              <input class="form-control" type="number" name="spend">
+              <span id="spend-error" class="invalid" hidden>Ratio must be greater than 0%.</span>
+            </div>
+          </div>
+        </div>
+        <span id="all-error" class="invalid" hidden>Save, Invest, and Spend ratios must add up to 100%.</span>
+        <button class="btn btn-outline-primary btn-block" type="submit">Update</button>
+      </form>
+    </div>
+  </div>
+</div><br>
